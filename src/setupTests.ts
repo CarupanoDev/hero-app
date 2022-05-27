@@ -1,9 +1,10 @@
-import Enzyme from "enzyme"
-import Adapter from "@wojtekmaj/enzyme-adapter-react-17"
-import { expect } from "vitest"
-import { createSerializer } from "enzyme-to-json"
+import fetch, { Headers, Request, Response } from "node-fetch"
 
-Enzyme.configure({ adapter: new Adapter() })
-
-// @ts-ignore
-expect.addSnapshotSerializer(createSerializer({ mode: "deep" }))
+if (!globalThis.fetch) {
+  // @ts-ignore
+  globalThis.fetch = fetch
+  globalThis.Headers = Headers
+  // @ts-ignore
+  globalThis.Request = Request
+  globalThis.Response = Response
+}
